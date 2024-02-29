@@ -17,7 +17,10 @@ class InventoryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "name" => fake() -> catchPhrase(),
+            "desc" => fake() -> text(),
+            "user_id" => 1,
+            "picture" => "https://picsum.photos/200/300",
         ];
     }
 }

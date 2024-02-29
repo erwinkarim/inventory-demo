@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreInventoryRequest;
 use App\Http\Requests\UpdateInventoryRequest;
 use App\Models\Inventory;
@@ -15,8 +16,6 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        Log::debug('should show inventory index');
-        return view('inventory.index');
     }
 
     /**
@@ -39,16 +38,6 @@ class InventoryController extends Controller
      * Display the specified resource.
      */
     public function show(Inventory $productId) {
-        Log::debug('should show inventory show');
-        Log::debug('request');
-        Log::debug($productId);
-
-        // check if exits, otherwise just return 404
-        if($productId == null){
-            abort(404);
-        }
-
-        return view('inventory.show', ["inventory" => $productId]);
     }
 
     /**

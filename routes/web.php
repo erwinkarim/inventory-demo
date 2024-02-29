@@ -30,9 +30,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::prefix('inventory')->name('inventory.')->group(function () {
-        Route::get('/', [InventoryController::class, 'index']) -> name('index');
-        Route::get('/{product-id}', [InventoryController::class, 'show']) -> name('show');
+    Route::controller(InventoryController::class) -> group(function(){
+        Route::get('/inventory', 'index') -> name('inventory.index');
+        Route::get('/inventory/{productId}', 'show');
     });
 });
 
