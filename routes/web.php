@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InventoryController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,10 +31,22 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::controller(InventoryController::class) -> group(function(){
-        Route::get('/inventory', 'index') -> name('inventory.index');
-        Route::get('/inventory/{productId}', 'show');
+    Route::post('/tokens/create', function (Request $request) {
+        $token = $request->user()->createToken($request->token_name);
+     
+        return ['token' => $token->plainTextToken];
     });
+
+    Route::prefix('inventory')->name('inventory.')->group(function () {
+        Route::controller(InventoryController::class) -> group(function(){
+            Route::get('/', 'index') -> name('index');
+            Route::get('/{productId}', 'show') -> name('show');
+        });
+    });
+    /*
+    Route::controller(InventoryController::class) -> Route::prefix('/inventory') -> group(function(){
+    });
+    */
 });
 
 // TODO: more admin pages for update / delete / new product

@@ -14,4 +14,10 @@
             </div>
         </div>
     </div>
+
+    <x-slot name="script">
+        <script>
+            console.log('inventory loaded');
+        </script>
+    </x-slot>
 </x-app-layout>

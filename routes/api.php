@@ -15,15 +15,25 @@ use App\Http\Controllers\API\InventoryController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::controller(InventoryController::class) -> group(function(){
-        Route::get('/inventory', 'index') -> name('inventory.index');
-        Route::get('/inventory/{productId}', 'show') -> name('inventory.show');
+/*
+    most are admin only use, but will deal with that later.
+*/
+// Route::group(['middleware' => 'auth:api'], function() {
+Route::group(['middleware' => 'auth:api'], function() {
+    Route::prefix('inventory')->name('api.inventory.')->group(function () {
+        Route::controller(InventoryController::class) -> group(function(){
+            Route::get('/', 'index') -> name('index');
+            Route::post('/pump', 'pump') -> name('pump');
+            Route::get('/{productId}', 'show') -> name('show');
+        });
     });
+    Route::post('/add-inventory', [InventoryController::class, 'create']) -> name('api.inventory.create');
+    Route::delete('/delete-inventory/{$productID}', [InventoryController::class, 'delete']) -> name('api.inventory.delete');
+    Route::post('/add-inventory/{$productID}', [InventoryController::class, 'update']) -> name('api.inventory.update');
 });
 
 // TODO

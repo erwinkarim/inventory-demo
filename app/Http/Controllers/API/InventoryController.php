@@ -16,6 +16,10 @@ class InventoryController extends Controller
      */
     public function index()
     {
+        Log::debug("getting inventory in api");
+
+        $data = Inventory::limit(20) -> get();
+        return response()->json($data, 200);
     }
 
     /**
