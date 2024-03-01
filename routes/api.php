@@ -22,8 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 /*
     most are admin only use, but will deal with that later.
 */
-// Route::group(['middleware' => 'auth:api'], function() {
-Route::group(['middleware' => 'auth:api'], function() {
+Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::prefix('inventory')->name('api.inventory.')->group(function () {
         Route::controller(InventoryController::class) -> group(function(){
             Route::get('/', 'index') -> name('index');

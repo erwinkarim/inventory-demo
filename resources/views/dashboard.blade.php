@@ -16,37 +16,18 @@
         </div>
     </div>
     <script>
-        console.log('loaded');
-         
-        let load = async () => {
-            let form = new FormData();
-            form.append('token_name', 'test');
+        window.addEventListener('load', async function () {
+            console.log('in dashboard');
 
-            let response = await fetch('/tokens/create', {
-                method: "POST",
-                headers: {
-                    'Accept': 'Application/json',
-                    'X-CSRF-Token': "{{ csrf_token() }}",
-                },
-                body: form,
+            /*
+                load cookies for api stuff
+            */
+            await axios.get('/sanctum/csrf-cookie').then(response => {
+                // Login...
+                console.log('got csrf cookie');
             });
-            let token = await response.json();
-            let token_code = token.token;
+        });
 
-            console.log('inventory', response);
-            console.log('token', token);
-            
-            // now fetch inventory
-            response = await fetch('/api/inventory', {
-                headers: {
-                    'Accept': 'Application/json',
-                    'Authorization': `Bearer ${token_code}`,
-                },
-            });
-            let inventory = await response.json();
-            console.log('inventory', inventory);
-        };
-        load();
 
     </script>
 </x-app-layout>

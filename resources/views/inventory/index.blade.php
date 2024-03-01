@@ -5,19 +5,49 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="pt-12 pb-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+                <div id="" class="p-6 text-gray-900 dark:text-gray-100">
+                    {{ __("Search Form + Buttons for New Inventory") }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="py-3">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div id="inventory-index" class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("Inventory Listing Here") }}
+                    <br />
                 </div>
             </div>
         </div>
     </div>
 
-    <x-slot name="script">
-        <script>
-            console.log('inventory loaded');
-        </script>
-    </x-slot>
+    <div class="py-3">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div id="" class="p-6 text-gray-900 dark:text-gray-100">
+                    {{ __("Pagination Here") }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', async function () {
+            console.log('in inventory.index');
+            axios.get('/api/inventory').then(e => {
+                let elm = document.getElementById('inventory-index');
+                console.log('e', e);
+                e.data.forEach(element => {
+                    elm.innerHTML += `<a class="underline" href="/inventory/${element.id}">${element.name}</a><br />`
+                    elm.innerHTML += `${JSON.stringify(element)} <br /><br />`;
+                });
+            })
+        });
+
+    </script>
 </x-app-layout>

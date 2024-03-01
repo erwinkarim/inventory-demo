@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InventoryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,22 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/tokens/create', function (Request $request) {
-        $token = $request->user()->createToken($request->token_name);
+        // see if there's any token that hasn't expire, give that last one, otherwise 
+        // just create a new one
+        Log::debug("getting tokens");
+
+        $checkToken = $request -> user() -> tokens -> where(function($q){
+            return $q -> expires_at == null || $q -> expires_at <= Carbon::today();
+        });
+        if($checkToken != null){
+            $token = $checkToken -> last();
+        } else {
+            $token = $request->user()->createToken($request->token_name);
+        }
+
+        foreach($request -> user() -> tokens as $token){
+            Log::debug($token);
+        }
      
         return ['token' => $token->plainTextToken];
     });
