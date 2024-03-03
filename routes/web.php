@@ -53,6 +53,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return ['token' => $token->plainTextToken];
     });
 
+    Route::get('/admin', [ProfileController::class, 'admin']) -> name('profile.admin');
+    Route::get('/admin/{userId}', [ProfileController::class, 'editUser']) -> name('profile.editUser');
     Route::prefix('inventory')->name('inventory.')->group(function () {
         Route::controller(InventoryController::class) -> group(function(){
             Route::get('/', 'index') -> name('index');

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\InventoryController;
+use App\Http\Controllers\API\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,17 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::delete('/delete-inventory/{productId}', [InventoryController::class, 'destroy']) -> name('api.inventory.delete');
     Route::post('/update-inventory/{productId}', [InventoryController::class, 'update']) -> name('api.inventory.update');
     Route::get('/inventory/{productId}', [InventoryController::class, 'show']) -> name('api.inventory.show');
+
+    Route::prefix('/users') -> group(function(){
+        Route::controller(UserController::class) -> group(function(){
+            Route::get('/', 'index') -> name('api.users');
+            Route::post('/', 'create') -> name('api.users.create');
+            Route::post('/{userId}', 'update') -> name('api.users.update');
+            Route::delete('/{userId}', 'destroy') -> name('api.users.destroy');
+            Route::post('/generate', 'generate') -> name('api.users');
+        });
+
+    });
 });
 
 // TODO

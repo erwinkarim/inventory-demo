@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreInventoryRequest;
 use App\Http\Requests\UpdateInventoryRequest;
 use App\Models\Inventory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Auth;
@@ -19,8 +20,9 @@ class InventoryController extends Controller
     {
         Log::debug("getting inventory in api");
 
+        $inventory = DB::table('inventories') -> paginate(21);
         $data = Inventory::limit(20) -> get();
-        return response()->json($data, 200);
+        return response()->json(["data" => $data, "inventory" => $inventory], 200);
     }
 
     /**
@@ -94,6 +96,8 @@ class InventoryController extends Controller
 
     // create 1000 units of inventory
     public function pump(){
+        Inventory::factory() -> count(1000) -> create();
+
         return response()->json(["msg" => "ok"], 200);
     }
 }
