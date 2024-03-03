@@ -14,6 +14,7 @@ class Inventory extends Model
         'name', 
         'desc',
         'picture',
+        'category_id',
     ];
 
     /**
@@ -23,5 +24,9 @@ class Inventory extends Model
      */
     public function user() {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function category() {
+        return $this->belongsTo(InventoryCategory::class, 'category_id', 'id');
     }
 }
