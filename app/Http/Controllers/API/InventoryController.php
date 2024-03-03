@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateInventoryRequest;
 use App\Models\Inventory;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use Auth;
 
 class InventoryController extends Controller
 {
@@ -27,7 +28,7 @@ class InventoryController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -35,7 +36,19 @@ class InventoryController extends Controller
      */
     public function store(StoreInventoryRequest $request)
     {
+        $validated = $request -> validated();
+        $user = Auth::user();
+
         //
+        $inventory = new Inventory([
+            "user_id" => $user -> id,
+            "name" => $request -> name,
+            "desc" => $request -> desc,
+            "picture" => $request -> picture,
+        ]);
+        $inventory -> save();
+
+        return response()->json(["msg" => "ok", "inventory" => $inventory], 200 );
     }
 
     /**

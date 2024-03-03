@@ -56,6 +56,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('inventory')->name('inventory.')->group(function () {
         Route::controller(InventoryController::class) -> group(function(){
             Route::get('/', 'index') -> name('index');
+            Route::get('/new', 'create') -> name('create');
             Route::get('/{productId}', 'show') -> name('show');
             Route::get('/{productId}/edit', 'edit') -> name('edit');
         });

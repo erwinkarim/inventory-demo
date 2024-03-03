@@ -25,6 +25,10 @@ class InventoryController extends Controller
     public function create()
     {
         //
+        $inventory = new Inventory();
+        $inventory -> picture = "https://picsum.photos/200/300";
+
+        return view('inventory.create', ["inventory" => $inventory]);
     }
 
     /**

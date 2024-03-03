@@ -10,6 +10,8 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div id="" class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("Search Form + Buttons for New Inventory") }}
+                    <br />
+                    <a href="{{ route('inventory.create') }}" class="underline">New Inventory</a>
                 </div>
             </div>
         </div>

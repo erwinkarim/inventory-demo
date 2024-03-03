@@ -25,7 +25,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::get('/inventory', [InventoryController::class, 'index']) -> name('api.inventory.index');
     Route::post('/inventory/pump', [InventoryController::class, 'pump']) -> name('api.inventory.pump');
-    Route::post('/add-inventory', [InventoryController::class, 'create']) -> name('api.inventory.create');
+    Route::post('/add-inventory', [InventoryController::class, 'store']) -> name('api.inventory.store');
     Route::delete('/delete-inventory/{productId}', [InventoryController::class, 'destroy']) -> name('api.inventory.delete');
     Route::post('/update-inventory/{productId}', [InventoryController::class, 'update']) -> name('api.inventory.update');
     Route::get('/inventory/{productId}', [InventoryController::class, 'show']) -> name('api.inventory.show');

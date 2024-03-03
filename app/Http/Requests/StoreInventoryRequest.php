@@ -8,10 +8,11 @@ class StoreInventoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
+     * TODO: autorize based on user creds
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +24,9 @@ class StoreInventoryRequest extends FormRequest
     {
         return [
             //
+            'name' => 'required',
+            'desc' => 'required',
+            'picture' => 'required',
         ];
     }
 }
