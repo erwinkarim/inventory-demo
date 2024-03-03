@@ -56,9 +56,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <button type="button" class="bg-blue-500" onclick="clickUpdate()">Update</button>
-                    <a href="{{ route('inventory.show', $inventory) }}">Cancel</a>
-                    <button type="button" class="text-red-600" onclick="clickDelete()">Delete</button>
+                    <x-primary-button type="button" onclick="clickUpdate()">Update</x-primary-button>
+                    <x-link-button-alt href="{{ route('inventory.show', $inventory) }}">Cancel</x-link-button-alt>
+                    <x-danger-button type="button" onclick="clickDelete()">Delete</x-danger-button>
                 </div>
             </div>
         </div>
