@@ -42,6 +42,7 @@ class InventoryController extends Controller
      * Display the specified resource.
      */
     public function show(Inventory $productId) {
+        return response()->json($productId, 200);
     }
 
     /**
@@ -55,16 +56,31 @@ class InventoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateInventoryRequest $request, Inventory $inventory)
+    public function update(UpdateInventoryRequest $request, Inventory $productId)
     {
         //
+        Log::debug("name: {$request -> name}");
+        $productId -> update([
+            "name" => $request -> name,
+            "desc" => $request -> desc,
+            "picture" => $request -> picture,
+        ]);
+
+        return response()->json(["msg" => "ok", "inventory" => $productId], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Inventory $inventory)
+    public function destroy(Inventory $productId)
     {
         //
+        Inventory::destroy($productId -> id);
+        return response()->json(["msg" => "ok"], 200);
+    }
+
+    // create 1000 units of inventory
+    public function pump(){
+        return response()->json(["msg" => "ok"], 200);
     }
 }

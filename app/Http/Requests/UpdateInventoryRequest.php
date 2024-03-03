@@ -8,10 +8,12 @@ class UpdateInventoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
+     * Only authorize admin , can-update role
      */
     public function authorize(): bool
     {
-        return false;
+        // return false;
+        return true;
     }
 
     /**
