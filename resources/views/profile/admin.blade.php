@@ -10,11 +10,16 @@
 			<div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
 				<div class="p-6 text-gray-900 dark:text-gray-100">
 					{{ __("Inventory Count: ").$invCount }}
-								</div>
+				</div>
 				<div class="p-6 text-gray-900 dark:text-gray-100">
-									<x-primary-button onclick="pumpit()">Pump It</x-primary-button>
-									- Generates 1000 Inventory objects
-								</div>
+					@can('create inventory')
+						<x-primary-button onclick="pumpit()">Pump It</x-primary-button>
+						- Generates 1000 Inventory objects
+					@endcan
+					@cannot('create inventory')
+						{{ __("You can't create inventory") }}
+					@endcannot
+				</div>
 			</div>
 		</div>
 	</div>
@@ -26,20 +31,25 @@
 					{{ __("User management") }}
 						<br />
 						<br />
-						<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-							<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-								<tr>
-									<th scope="col" class="px-6 py-3">ID</th> 
-									<th scope="col" class="px-6 py-3">Name</th> 
-									<th scope="col" class="px-6 py-3">Email</th> 
-									<th scope="col" class="px-6 py-3">Role</th> 
-									<th scope="col" class="px-6 py-3">Action</th> 
-								</tr>
-							</thead>
-							<tbody id="user-table"></tbody>
-						</table>
-						<br />
-						<x-primary-button onclick="generateUser()">Generate User</x-primary-button>
+						@can('manage users')
+							<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+								<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+									<tr>
+										<th scope="col" class="px-6 py-3">ID</th> 
+										<th scope="col" class="px-6 py-3">Name</th> 
+										<th scope="col" class="px-6 py-3">Email</th> 
+										<th scope="col" class="px-6 py-3">Role</th> 
+										<th scope="col" class="px-6 py-3">Action</th> 
+									</tr>
+								</thead>
+								<tbody id="user-table"></tbody>
+							</table>
+							<br />
+							<x-primary-button onclick="generateUser()">Generate User</x-primary-button>
+						@endcan
+						@cannot('manage users')
+							{{ __("You can't manage users") }}
+						@endcannot
 					</div>
 			</div>
 		</div>

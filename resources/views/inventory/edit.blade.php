@@ -56,9 +56,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <x-primary-button type="button" onclick="clickUpdate()">Update</x-primary-button>
+                    @can('edit inventory')
+                      <x-primary-button type="button" onclick="clickUpdate()">Update</x-primary-button>
+                    @endcan
                     <x-link-button-alt href="{{ route('inventory.show', $inventory) }}">Cancel</x-link-button-alt>
-                    <x-danger-button type="button" onclick="clickDelete()">Delete</x-danger-button>
+                    @can('delete inventory')
+                      <x-danger-button type="button" onclick="clickDelete()">Delete</x-danger-button>
+                    @endcan
                 </div>
             </div>
         </div>

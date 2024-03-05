@@ -10,8 +10,10 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div id="" class="p-6 text-gray-900 dark:text-gray-100">
                     <x-search-input />
-                    <br />
-                    <x-link-button href="{{ route('inventory.create') }}">New Inventory</x-link-button>
+                    @can('create inventory')
+                        <br />
+                        <x-link-button href="{{ route('inventory.create') }}">New Inventory</x-link-button>
+                    @endcan
                 </div>
             </div>
         </div>
