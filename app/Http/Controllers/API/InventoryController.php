@@ -16,13 +16,36 @@ class InventoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         Log::debug("getting inventory in api");
+        Log::debug("request -> category: {$request -> category}");
 
-        $inventory = DB::table('inventories') -> paginate(21);
-        $data = Inventory::limit(20) -> get();
-        return response()->json(["data" => $data, "inventory" => $inventory], 200);
+        $inventory = DB::table('inventories');
+        $inventory = $inventory 
+            -> join('categories', 'inventories.category_id', '=', 'categories.id') 
+            -> select('inventories.id as id', 'inventories.name as name', 'desc', 'picture', 'category_id', 'categories.name as cat_name');
+
+        if($request -> category != null){
+            Log::debug("got category");
+            $inventory = $inventory -> whereIn('category_id', explode(",", $request -> category) ); 
+            $search["category"] = $request -> category;
+        } else {
+            Log::debug("no category");
+            // $inventory = DB::table('inventories'); 
+            $search["category"] = "";
+        }
+
+
+        $search["q"] = "";
+        if($request -> q != null){
+            $inventory = $inventory -> where('inventories.name', 'like', "%{$request -> q}%");
+            $search["q"] = $request -> q;
+        }
+
+        $inventory = $inventory -> paginate(21);
+
+        return response()->json(["inventory" => $inventory, "search" => $search], 200);
     }
 
     /**

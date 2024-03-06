@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreInventoryRequest;
 use App\Http\Requests\UpdateInventoryRequest;
 use App\Models\Inventory;
+use App\Models\InventoryCategory;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
@@ -13,10 +14,16 @@ class InventoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         Log::debug('should show inventory index');
-        return view('inventory.index');
+        $categories = InventoryCategory::all();
+        $search = array_merge(["q" => "", "category" => [""]], $request -> only(["category", "q"]));
+        if($search["category"] != [""]){
+            $search["category"] = explode(",", $search["category"]);
+        }
+        
+        return view('inventory.index', ["categories" => $categories, "search" => $search] );
     }
 
     /**
@@ -52,7 +59,9 @@ class InventoryController extends Controller
             abort(404);
         }
 
-        return view('inventory.show', ["inventory" => $productId]);
+        $inventory = Inventory::with('category') -> find($productId -> id);
+
+        return view('inventory.show', ["inventory" => $inventory]);
     }
 
     /**

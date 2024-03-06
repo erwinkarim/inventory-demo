@@ -19,6 +19,7 @@
                 name="{{ $inventory -> name }}" 
                 desc="{{ $inventory -> desc }}"
                 picture="{{ $inventory -> picture }}"
+                catName="{{ $inventory -> category -> name}}"
             ></x-card>
         </div>
         @can('edit inventory')
