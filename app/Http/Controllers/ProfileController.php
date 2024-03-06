@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Inventory;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class ProfileController extends Controller
 {
@@ -67,6 +70,12 @@ class ProfileController extends Controller
     }
 
     public function editUser(User $userId){
-        return view('profile.editUser', ["user" => $userId]);
+        // get user id and permissionns / roles
+        $user = User::with(['roles', 'permissions']) -> find($userId -> id);
+        $roles = Role::all();
+        $permissions = Permission::all();
+
+        
+        return view('profile.editUser', ["user" => $user, "roles" => $roles, "permissions" => $permissions]);
     }
 }
