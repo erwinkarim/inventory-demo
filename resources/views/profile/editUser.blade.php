@@ -31,7 +31,8 @@
 							<legend>Roles & Permissions</legend>
 							@foreach($roles as $role)
 								<div class="flex items-center mb-4">
-									<input id="role-option-{{ $role -> id }}" type="radio" name="roles" value="{{ $role -> id }}" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
+									<input id="role-option-{{ $role -> id }}" type="radio" name="roles" value="{{ $role -> id }}" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" 
+									{{ $user -> roles -> where('id', $role -> id) -> count() != 0 ? 'checked' : '' }} />
 									<label for="role-option-{{ $role -> id }}" class="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">
 										{{ $role -> name }}
 									</label>
@@ -48,7 +49,9 @@
 							<legend class="sr-only">Checkbox variants</legend>
 							@foreach($permissions as $permission)
 								<div class="flex items-center mb-4">
-										<input checked id="checkbox-{{ $permission -> id }}" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" >
+										<input id="checkbox-{{ $permission -> id }}" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+										{{ $user -> permissions -> where('id', $permission -> id) -> count() != 0 ? 'checked' : '' }} 
+										/>
 										<label for="checkbox-{{ $permission -> id}}" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
 											{{ $permission -> name }}
 										</label>
