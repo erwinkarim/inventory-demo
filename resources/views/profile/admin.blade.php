@@ -76,7 +76,7 @@
 						<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 							<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">${ element.id}</th>
 							<td>${ element.name }</td> <td>${ element.email }</td>
-							<td>Admin/Guest/Custom</td>
+							<td>${ element.roles.map(e => { return e.name; }) }</td>
 							<td>
 								<x-link-button href="/admin/${ element.id }">Edit</x-link-button>
 								<x-danger-button onclick="deleteUser(${element.id})">Delete</x-danger-button>
@@ -90,12 +90,28 @@
 		let generateUser = () => {
 			console.log('generate user clicked');
 
+			axios({
+				method: 'post', 
+				url: "{{ route('api.users.generate') }}"
+			}).then((e) => {
+				console.log(e);
+				alert('user generated');
+				window.location.reload();
+			})
 		};
 		
 		let deleteUser = (id) => {
 			console.log(`delete user ${id}`);
+			axios({
+				method: 'delete', 
+				url: `/api/users/${id}`,
+			}).then((e) => {
+				console.log('user deleted');
+				alert('user deleted');
+				window.location.reload();
+			})
 		}
-
+		
 		window.addEventListener('load', async function () {
 			console.log('in admin page');
 			loadUser();

@@ -43,9 +43,9 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
             Route::controller(UserController::class) -> group(function(){
                 Route::get('/', 'index') -> name('api.users');
                 Route::post('/', 'create') -> name('api.users.create');
-                Route::post('/{userId}', 'update') -> name('api.users.update');
-                Route::delete('/{userId}', 'destroy') -> name('api.users.destroy');
-                Route::post('/generate', 'generate') -> name('api.users');
+                Route::post('/generate', 'generate') -> name('api.users.generate');
+                Route::post('/{user}', 'update') -> name('api.users.update');
+                Route::delete('/{user}', 'destroy') -> name('api.users.destroy');
             });
         });
     });
