@@ -80,7 +80,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        // the admin user will always be there
+        if($user -> email == 'admin@example.com'){
+            return response()->json(["msg" => "can't delete admin user"], 200);
+        }
+
         Log::debug("deleting user {$user -> id}");
         $user -> delete();
 

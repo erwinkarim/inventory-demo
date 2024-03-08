@@ -5,7 +5,7 @@ A take home project for an undisclosed employment opportunity.
 
 ## How to access
 
-A demo of this site is available [here](#)
+A demo of this site is available [here](https://inventory-demo-polished-butterfly-8856.fly.dev)
 
 There's two users by default with the following user id / password:
 * admin@example.com / password
