@@ -23,8 +23,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 /*
     most are admin only use, but will deal with that later.
 */
+
 Route::group(['middleware' => 'auth:sanctum'], function() {
-    Route::get('/inventory', [InventoryController::class, 'index']) -> name('api.inventory.index');
     Route::middleware(['can:create inventory'])->group(function () {
         Route::post('/inventory/pump', [InventoryController::class, 'pump']) -> name('api.inventory.pump');
         Route::post('/add-inventory', [InventoryController::class, 'store']) -> name('api.inventory.store');
@@ -36,7 +36,6 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::middleware(['can:edit inventory'])->group(function () {
         Route::post('/update-inventory/{productId}', [InventoryController::class, 'update']) -> name('api.inventory.update');
     });
-    Route::get('/inventory/{productId}', [InventoryController::class, 'show']) -> name('api.inventory.show');
 
     Route::middleware(['can:manage users'])->group(function () {
         Route::prefix('/users') -> group(function(){
@@ -50,6 +49,9 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
         });
     });
 });
+
+Route::get('/inventory', [InventoryController::class, 'index']) -> name('api.inventory.index');
+Route::get('/inventory/{productId}', [InventoryController::class, 'show']) -> name('api.inventory.show');
 
 // TODO
 // more APIs but for admins/role that can do only

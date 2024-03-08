@@ -63,6 +63,7 @@ class UserController extends Controller
         if($user -> email != 'admin@example.com'){
             if($changes["roles"] == 0){
                 $permissions = Permission::find($changes["permissions"]);
+                $user -> syncRoles([]);
                 $user -> syncPermissions( $permissions );
             } else {
                 $role = Role::find($changes["roles"]);

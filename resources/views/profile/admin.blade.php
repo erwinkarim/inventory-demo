@@ -76,7 +76,7 @@
 						<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 							<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">${ element.id}</th>
 							<td>${ element.name }</td> <td>${ element.email }</td>
-							<td>${ element.roles.map(e => { return e.name; }) }</td>
+							<td>${ element.roles.length == 0 ? 'Custom' : element.roles.map(e => { return e.name; }) }</td>
 							<td>
 								<x-link-button href="/admin/${ element.id }">Edit</x-link-button>
 								<x-danger-button onclick="deleteUser(${element.id})">Delete</x-danger-button>

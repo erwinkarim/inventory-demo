@@ -43,5 +43,10 @@ class DatabaseSeeder extends Seeder
         // 10 random categories
         InventoryCategory::factory() -> count(10) -> create();
 
+        // run permission and inventory seeders
+        $this -> call([
+            InventorySeeder::class,
+            RoleNPermissionSeeder::class,
+        ]);
     }
 }
