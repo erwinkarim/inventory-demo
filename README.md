@@ -5,7 +5,7 @@ A take home project for an undisclosed employment opportunity.
 
 ## How to access
 
-A demo of this site is available [here](https://inventory-demo-polished-butterfly-8856.fly.dev)
+A demo of this site is available [here](https://inventory-demo-polished-butterfly-8856.fly.dev). If the site hasn't been visited for a while, it will take a while to start the first request. 
 
 There's two users by default with the following user id / password:
 * admin@example.com / password
@@ -48,7 +48,7 @@ php artisan db:seed
 npm install
 ```
 
-* run these commands in seperate terminals to run the dev server
+* run these commands in separate terminals to run the dev server
 
 ```
 php artisan server
